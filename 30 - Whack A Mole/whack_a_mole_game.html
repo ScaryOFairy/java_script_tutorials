@@ -39,6 +39,7 @@
   const moles = document.querySelectorAll('.mole');
   let lastHole;
   let timeUp = false;
+  let score = 0;
 
   // randomize the amount of time the mole is visible for before he pops back in the hole.
   function randomTime(min,max){
@@ -79,13 +80,17 @@
   function startGame(){
     scoreBoard.textContent = 0;
     timeUp = false;
+    score = 0;
     peep();
     setTimeout(() => timeUp = true, 10000)  // game time set to 10 seconds
   }
 
   // function for when we click the mole it bonks it on the head
   function bonk(e){
-
+    if(!e.isTrusted) return; //looking out for a cheater, someone trying to simulate a click
+    score++;
+    this.classList.remove('up');
+    scoreBoard.textContent = score;
   }  
 
   // add Event Listener to the mole for when it is clicked
