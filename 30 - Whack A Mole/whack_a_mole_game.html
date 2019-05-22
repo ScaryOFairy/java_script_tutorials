@@ -33,9 +33,62 @@
   </div>
 
 <script>
+  // document.querySelectorAll() returns a static NodeList(obj that consists of a list of all the nodes in a document) that match the specified group of selectors.
   const holes = document.querySelectorAll('.hole');
   const scoreBoard = document.querySelector('.score');
   const moles = document.querySelectorAll('.mole');
+  let lastHole;
+  let timeUp = false;
+
+  // randomize the amount of time the mole is visible for before he pops back in the hole.
+  function randomTime(min,max){
+    return Math.round(Math.random() * (max-min) + min);   // returning a random time in milliseconds.
+  }
+
+  // function to pick a random hole for the mole to pop out from.
+  function randomHole(holes){
+    //console.log(holes.length); result will be 6!
+    const idx = Math.floor(Math.random() * holes.length);
+    const hole = holes[idx];
+    
+    //if the same hole comes up twice it goes through this if statement.
+    if(hole === lastHole){
+      console.log('Oh crap thats the same hole silly');
+      return randomHole(holes);
+    }
+
+    lastHole = hole;
+    return hole;
+  }
+
+  // function to make the moles pop up out of the holes
+  function peep(){
+    const time = randomTime(200, 1000);
+    const hole = randomHole(holes);
+    
+    // add class 'up' to hole
+    hole.classList.add('up');
+    // after random amount of time we need to remove the 'up' class
+    setTimeout(() => {
+        hole.classList.remove('up');
+        if(!timeUp) peep(); // so the mole keeps peeping
+        }, time);
+  }
+
+  function startGame(){
+    scoreBoard.textContent = 0;
+    timeUp = false;
+    peep();
+    setTimeout(() => timeUp = true, 10000)  // game time set to 10 seconds
+  }
+
+  // function for when we click the mole it bonks it on the head
+  function bonk(e){
+
+  }  
+
+  // add Event Listener to the mole for when it is clicked
+  moles.forEach(mole => mole.addEventListener('click', bonk));
 
 </script>
 </body>
