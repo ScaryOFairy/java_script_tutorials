@@ -10,13 +10,20 @@ html {
 
 body {
   padding: 0;
-  margin: 0;
+  /* margin: 0; */
   font-family: 'Amatic SC', cursive;
 }
 
 h1 {
   text-align: center;
   font-size: 10rem;
+  line-height: 1;
+  margin-bottom: 0;
+}
+
+h2 {
+  text-align: center;
+  font-size: 5rem;
   line-height: 1;
   margin-bottom: 0;
 }
@@ -66,4 +73,23 @@ h1 {
 
 .hole.up .mole {
   top: 0;
+}
+
+.button {
+  background-color: #555555;
+  border: black;
+  color: white;
+  margin-left: 7.5%;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  border-radius: 12px;
+  font-family: 'Amatic SC', cursive;
+}
+
+.countdown {
+  margin-right: 7.5%;
+  
 }
