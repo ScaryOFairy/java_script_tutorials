@@ -62,7 +62,7 @@ h2 {
 }
 
 .mole {
-  background: url('mole.svg') bottom center no-repeat;
+  background: url('gallery-1505943680-gettyimages-479183510-removebg.png') bottom center no-repeat;
   background-size: 60%;
   position: absolute;
   top: 100%;
@@ -92,4 +92,42 @@ h2 {
 .countdown {
   margin-right: 7.5%;
   
+}
+
+.plates {
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  list-style: none;
+}
+
+.plates li {
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+  padding: 10px 0;
+  font-weight: 100;
+  display: flex;
+}
+
+.plates label {
+  flex: 1;
+  cursor: pointer;
+}
+
+.plates input {
+  display: none;
+}
+
+.plates input + label:before {
+  content: '⬜️';
+  margin-right: 10px;
+}
+
+.add-items {
+  margin-top: 20px;
+  align-items: center;
+}
+
+.add-items input {
+  padding: 10px;
+  outline: 0;
 }

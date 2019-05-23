@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Whack-a-mole! <span class="score">0</span></h1>
-  <h2 class="countdown" id="countdown"><button class="button" onClick="startGame()" id="clicky">Start!</button></h2>
+  <h1>Whack-a-Jake! <span class="score" name="add-score">0</span></h1>
+  <h2 class="countdown" id="countdown"><button class="button" onClick="startGame()">Start!</button></h2>
 
 
   <div class="game">
@@ -31,6 +31,16 @@
     <div class="hole hole6">
       <div class="mole"></div>
     </div>
+  </div>
+
+  <div class="add-items">
+    <h2>Save Scores Here</h2>
+      <ul class="plates">
+      </ul>
+      <form class "add-scores">
+        <input type="text" name="item" placeholder="Player Name" required>
+        <input type="submit" value="Add Score">
+      </form>
   </div>
 
 <script>
@@ -63,7 +73,6 @@
     return hole;
   }
 
-
   // function to make the moles pop up out of the holes
   function peep(){
     const time = randomTime(200, 1000);
@@ -80,15 +89,6 @@
 
   function startGame(){
     var timeScore = setTimeout(() => timeUp = true, 10000)  // game time set to 10 seconds
-    // var downloadTimer = setInterval(function(){
-    //   document.getElementById("progressBar").value = 10 - timeScore;
-    //   timeScore -= 1;
-    //   if(timeScore < 0){
-    //     clearInterval(downloadTimer);
-    //     console.log("working mother fucker")
-    //     console.log("timeleft: "+timeScore);
-    //   }
-    // });
     var timeleft = 10;
     var downloadTimer = setInterval(function(){
       document.getElementById("countdown").innerHTML = timeleft + " seconds remaining";
@@ -102,7 +102,6 @@
     timeUp = false;
     score = 0;
     peep();
-    // console.log(timeScore);
   }
 
   // function for when we click the mole it bonks it on the head
@@ -113,9 +112,54 @@
     scoreBoard.textContent = score;
   }  
 
-
   // add Event Listener to the mole for when it is clicked
   moles.forEach(mole => mole.addEventListener('click', bonk));
+
+  //script for saving high scores
+  const addItems = document.querySelector('.add-items');
+  const addScores = document.querySelector('.score');
+  const itemsList = document.querySelector('.plates');
+  // const scores = [];
+  const items = [];
+
+  function addItem(e){
+    e.preventDefault();
+    const text = (this.querySelector('[name=item]')).value;
+    const item = {
+      text,
+      done: false
+    };
+    items.push(item);
+    populateList(items, itemsList);
+    this.reset();
+  }
+
+  function addScore(e){
+    e.preventDefault();
+    const text = (this.querySelector('[name=add-score]')).value;
+    const score = {
+      text,
+      done: false
+    };
+    items.push(score);
+    populateList(itmes, itemsList);
+    this.reset();
+  }
+
+    //populate list in html
+    function populateList(plates = [], platesList){
+      platesList.innerHTML = plates.map((plate, i) => {     //going to take in an object and return a sting
+          return `
+            <li>
+                <lable for="item${i}">${plate.text}</lable>
+                <lable for="score${i}">${scoreBoard.textContent}</lable>
+            </li>
+          `;
+      }).join('');      //this line is going to take in the object that map makes and return one long string
+  }
+
+  addItems.addEventListener('submit', addItem);
+  addScores.addEventListener('submit', addScore);
 
 </script>
 </body>
